@@ -26,6 +26,8 @@
 # define KEY_AS_W			 		(0X0D)
 # define KEY_AS_E			 		(0X0E)
 # define KEY_AS_R			 		(0X0F)
+# define KEY_AS_I					(0X10)
+# define KEY_AS_O					(0X11)
 
 # define KEY_NAS_SPACE				(0X31)
 # define KEY_NAS_ESCAPE				(0X35)

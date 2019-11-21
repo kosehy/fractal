@@ -10,7 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fractol.h"
+
+static void		put_pixel(t_fractal *fractal, int depth)
+{
+	int		pos;
+
+	pos = (fractal->fractal.height + (fractal->fractal.width * W_WIDTH)) * 4;
+	if (fractal->fractal.height < W_WIDTH \
+			&& fractal->fractal.width < W_HEIGHT \
+			&& depth == fractal->fractal.iteration)
+	{
+		fractal->image.data[pos] = 0x00;
+		fractal->image.data[pos + 1] = 0x00;
+		fractal->image.data[pos + 2] = 0x00;
+	}
+	else if (fractal->fractal.height < W_WIDTH \
+			&& fractal->fractal.width < W_HEIGHT)
+	{
+		fractal->image.data[pos] = fractal->color.red + (depth * 2.42);
+		fractal->image.data[pos + 1] = fractal->color.green + (depth * 2.42);
+		fractal->image.data[pos + 2] = fractal->color.blue + (depth * 2.42);
+	}
+}
+
+/*
+** mandelbrot fractal
+** @param fractal
+** @return
+*/
 
 int				mandelbrot(t_fractal *fractal)
 {
@@ -56,6 +84,7 @@ static void		*draw_fractal(void *slot)
 		while (fractal->fractal.width < fractal->fractal.limit)
 		{
 			depth = (fractal->fractal.type == 1) ? mandelbrot(fractal) : depth;
+			put_pixel(fractal, depth);
 			++fractal->fractal.width;
 		}
 		++fractal->fractal.height;
@@ -140,30 +169,5 @@ void			fractal_pthread(t_fractal *fractal)
 //			++x;
 //		}
 //		++y;
-//	}
-//}
-//
-//void			draw_rectangle(t_fdf *fdf, int height, int width)
-//{
-//	int		y;
-//	int		x;
-//
-//	y = 0;
-//	x = 0;
-//	fdf->map.height = height;
-//	fdf->map.width = width;
-//	if (!(fdf->map.values = (int **)malloc(sizeof(int *) * fdf->map.height)))
-//		ft_puterror("Memory Allocation failed!");
-//	while (x != fdf->map.height)
-//	{
-//		if (!(fdf->map.values[x] = (int *)malloc(sizeof(int) * fdf->map.width)))
-//			ft_puterror("Memory ALlocation failed!");
-//		while (y != fdf->map.height)
-//		{
-//			fdf->map.values[x][y] = 1;
-//			y += 1;
-//		}
-//		y = 0;
-//		x += 1;
 //	}
 //}

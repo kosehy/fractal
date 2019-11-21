@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -40,25 +40,6 @@ typedef struct	s_image
 	int			bpp;
 }				t_image;
 
-typedef struct	s_map
-{
-	int			**values;
-	int			width;
-	int			height;
-	int			coord_x;
-	int			coord_y;
-	int			x0;
-	int			x1;
-	int			y0;
-	int			y1;
-	int			zoom;
-	int			isometric;
-	int			man_color;
-	double		z_value;
-	double		angle_x;
-	double		angle_y;
-}				t_map;
-
 typedef struct	s_color
 {
 	int			blue;
@@ -72,14 +53,6 @@ typedef struct	s_mlx
 	void		*win;
 	void		*img;
 }				t_mlx;
-
-typedef struct	s_fdf
-{
-	t_mlx		mlx;
-	t_map		map;
-	t_image		image;
-	t_color		color;
-}				t_fdf;
 
 typedef struct	s_type
 {
@@ -108,18 +81,14 @@ typedef struct	s_fractal
 	t_color		color;
 	t_type		fractal;
 	t_mouse		mouse;
+	int			manual_color;
 }				t_fractal;
 
 /*
 ** Prototypes of the read file and draw functions.
 */
 
-void			read_fdf_map(char *argv, t_fdf *fdf);
-int				generate_fdf_map(t_fdf *fdf);
-void			display_manual(t_fdf *fdf);
-void			free_2d_str(char **nums);
-void			display_manual(t_fdf *fdf);
-void			random_color_letter(t_fdf *fdf);
+void			display_manual(t_fractal *fractal);
 
 /*
 **	fractal.c
