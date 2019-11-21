@@ -1,5 +1,5 @@
 # CLion files
-idea
+.idea
 cmake-build-debug
 
 # text files
