@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractal.h"
 
-/*md
+/*
 ** initialize fractal parameter
 ** @param fractal
 ** @1 : Mandelbrot Set
 ** @2 : Julia Set
-** @3 : ?
+** @3 : sphere Set
 */
 
-void	fractal_init(t_fractal *fractal)
+void		fractal_init(t_fractal *fractal)
 {
-	fractal->fractal.xr = -3;
-	fractal->fractal.yi = -2;
+	fractal->fractal.xr = -2.60;
+	fractal->fractal.yi = -2.20;
 	fractal->fractal.scale = 300.00;
-	fractal->fractal.iteration = 30;
+	fractal->fractal.iteration = 42;
 	fractal->color.green = 0x22;
 	fractal->color.blue = 0x32;
 	fractal->color.red = 0x42;
@@ -38,42 +38,22 @@ void	fractal_init(t_fractal *fractal)
 	fractal->cp.ci = 0.0;
 	fractal->cp.a = 0.0;
 	fractal->cp.b = 0.0;
+	if (fractal->fractal.type == 2)
+	{
+		fractal->mouse.state = 1;
+		fractal->fractal.iteration = 100;
+	}
 }
 
-/*md
-** Update the fractal image.
-** @param fractal
-*/
-
-void	fractal_update(t_fractal *fractal)
-{
-	int		x;
-
-	x = 10;
-	if (fractal->fractal.iteration <= 0)
-		fractal->fractal.iteration = 0;
-	fractal_pthread(fractal);
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
-	fractal->manual_color, ft_strjoin("# of iterations : ", \
-	ft_itoa(fractal->fractal.iteration)));
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 35,\
-	fractal->manual_color, ft_strjoin("Scale : ", \
-	ft_itoa((int) fractal->fractal.scale)));
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
-	fractal->manual_color, "[ESC]                       exit fdf program");
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 95,\
-	fractal->manual_color, "[Key |I|O|]                 Change iteration");
-}
-
-/*md
-** fractal manipulate
+/*
+** get mouse position
 ** @param x
 ** @param y
 ** @param fractal
 ** @return
 */
 
-int		fractal_manipulate(int x, int y, t_fractal *fractal)
+int				follow_by_mouse(int x, int y, t_fractal *fractal)
 {
 	if (fractal->mouse.state == 1 && (x > 0 && y > 0) \
 			&& (x < W_WIDTH && y < W_HEIGHT))
@@ -85,7 +65,66 @@ int		fractal_manipulate(int x, int y, t_fractal *fractal)
 	return (0);
 }
 
-int		fractal_mouse(int mc, int x, int y, t_fractal *fractal)
+/*
+** fractal zoom in control
+** @param x
+** @param y
+** @param f
+*/
+
+static void		zoom_in(int x, int y, t_fractal *f)
+{
+	if (f->fractal.scale >= MAX_ZOOM)
+	{
+		f->fractal.scale = MAX_ZOOM;
+		return ;
+	}
+	if (f->mouse.state == 1)
+	{
+		f->mouse.pos_x = x;
+		f->mouse.pos_y = y;
+	}
+	f->fractal.xr = (x / f->fractal.scale + f->fractal.xr) - \
+					((f->fractal.scale * PRECISION) / 2);
+	f->fractal.xr += ((f->fractal.scale * PRECISION) / 2) - \
+					(x / (f->fractal.scale * PRECISION));
+	f->fractal.yi = (y / f->fractal.scale + f->fractal.yi) - \
+					((f->fractal.scale * PRECISION) / 2);
+	f->fractal.yi += ((f->fractal.scale * PRECISION) / 2) - \
+					(y / (f->fractal.scale * PRECISION));
+	f->fractal.scale *= PRECISION;
+	f->fractal.iteration += 1;
+}
+
+/*
+** fractal zoom out control
+** @param f
+*/
+
+static void		zoom_out(t_fractal *f)
+{
+	f->fractal.xr = (f->mouse.pos_x / f->fractal.scale + f->fractal.xr) - \
+					((f->fractal.scale / PRECISION) / 2);
+	f->fractal.xr += ((f->fractal.scale / PRECISION) / 2) - \
+					(f->mouse.pos_x / (f->fractal.scale * PRECISION));
+	f->fractal.yi = (f->mouse.pos_y / f->fractal.scale + f->fractal.yi) - \
+					((f->fractal.scale / PRECISION) / 2);
+	f->fractal.yi += ((f->fractal.scale / PRECISION) / 2) - \
+					(f->mouse.pos_y / (f->fractal.scale * PRECISION));
+	f->fractal.scale /= PRECISION;
+	f->fractal.iteration += 1;
+}
+
+/*
+** fractal mouse control
+** @param mc
+** @param x
+** @param y
+** @param fractal
+** @return
+*/
+
+int				fractal_mouse(int mc, int x, int y, t_fractal *fractal)
 {
 	if (x > 0 && y > 0 && x < W_WIDTH && y < W_HEIGHT)
 	{
@@ -96,7 +135,11 @@ int		fractal_mouse(int mc, int x, int y, t_fractal *fractal)
 			else
 				fractal->mouse.state = 1;
 		}
+		else if (mc == MOUSE_UP_SCROLL)
+			zoom_in(x, y, fractal);
+		else if (mc == MOUSE_DOWN_SCROLL)
+			zoom_out(fractal);
+		fractal_update(fractal);
 	}
 	return (0);
 }
-

@@ -10,8 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-#define SQUARE(x) (x * x)
+#include "fractal.h"
+
+/*
+** dispatch table for various fractal type
+*/
+
+t_dt	g_dt[] =
+{
+	{1, mandelbrot_frac},
+	{2, julia_frac},
+	{3, ginkgo_frac}
+};
 
 /*md
 **
@@ -41,39 +51,11 @@ static void		put_pixel(t_fractal *fractal, int depth)
 	}
 }
 
-int			mandelbrot_frac(t_fractal *f)
-{
-	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
-			&& f->fractal.depth < f->fractal.iteration)
-	{
-		f->cp.tmp_zr = f->cp.zr;
-		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
-		f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
-		++f->fractal.depth;
-	}
-	return (f->fractal.depth);
-}
-
-int			julia_frac(t_fractal *f)
-{
-	f->cp.zr = (f->mouse.pos_x - (210.0 / 2.0)) / ((float)W_WIDTH * 2) + 0.15;
-	f->cp.zi = (f->mouse.pos_y - (320.0 / 2.0)) / ((float)W_HEIGHT) - 0.15;
-	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
-			&& f->fractal.depth < f->fractal.iteration)
-	{
-		f->cp.tmp_zr = f->cp.zr;
-		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
-		f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
-		++f->fractal.depth;
-	}
-	return (f->fractal.depth);
-}
-
-t_dt	g_dt[] =
-{
-	{1, mandelbrot_frac},
-	{2, julia_frac}
-};
+/*
+** generate any fractal based on fractal.type value
+** @param f
+** @return
+*/
 
 int				f_generator(t_fractal *f)
 {
@@ -88,7 +70,7 @@ int				f_generator(t_fractal *f)
 	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
 	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
 
-	while (i < 2)
+	while (i < 3)
 	{
 		if (g_dt[i].type == f->fractal.type)
 		{
@@ -101,16 +83,7 @@ int				f_generator(t_fractal *f)
 	return (f->fractal.depth);
 }
 
-int				check_fractal_depth(t_fractal *fractal)
-{
-	int			depth;
-
-	depth = 0;
-	depth = f_generator(fractal);
-	return (depth);
-}
-
-/*md
+/*
 ** draw the fractal based on the fractal.type
 ** @param slot
 ** @return
@@ -129,7 +102,7 @@ static void		*draw_fractal(void *slot)
 		fractal->fractal.width = tmp;
 		while (fractal->fractal.width < fractal->fractal.limit)
 		{
-			depth = check_fractal_depth(fractal);
+			depth = f_generator(fractal);
 			put_pixel(fractal, depth);
 			++fractal->fractal.width;
 		}
@@ -138,7 +111,7 @@ static void		*draw_fractal(void *slot)
 	return (slot);
 }
 
-/*md
+/*
 ** do the image process with multi-threading
 ** @param fractal
 */
@@ -155,10 +128,6 @@ void			fractal_pthread(t_fractal *fractal)
 		ft_memcpy((void *)&thread[i], (void *)fractal, sizeof(t_fractal));
 		thread[i].fractal.width = ((float)(1.00 / THREADS) * W_WIDTH) * i;
 		thread[i].fractal.limit = ((float)(1.00 / THREADS) * W_WIDTH) * (i + 1);
-		++i;
-	}
-	i = 0;
-	while (i < THREADS) {
 		pthread_create(&p_th[i], NULL, draw_fractal, &thread[i]);
 		++i;
 	}
@@ -171,49 +140,27 @@ void			fractal_pthread(t_fractal *fractal)
 							fractal->mlx.img, 0, 0);
 }
 
-//void			fractal(t_fdf *fdf, float left, float top, float xside, float yside)
-//{
-//	float	xscale;
-//	float	yscale;
-//	float	zx;
-//	float	zy;
-//	float	cx;
-//	float	tempx;
-//	float	cy;
-//	int		x;
-//	int		y;
-//	int		i;
-//	int		j;
-//	int		maxx;
-//	int		maxy;
-//	int		count;
-//
-//	maxx = W_WIDTH;
-//	maxy = W_HEIGHT;
-//	xscale = xside / maxx;
-//	yscale = yside / maxy;
-//	draw_rectangle(fdf, height, width);
-//	y = 1;
-//	while (y <= maxy - 1)
-//	{
-//		x = 1;
-//		while (x <= maxx - 1)
-//		{
-//			cx = x * xscale + left;
-//			cy = y * xscale + top;
-//			zx = 0;
-//			zy = 0;
-//			count = 0;
-//			while ((zx * zx + zy * zy < 4) && (count < 10))
-//			{
-//				tempx = zx * zx - zy * zy + cx;
-//				zy = 2 * zx * zy + cy;
-//				zx = tempx;
-//				++count;
-//			}
-//			fdf->map.values
-//			++x;
-//		}
-//		++y;
-//	}
-//}
+/*md
+** Update the fractal image.
+** @param fractal
+*/
+
+void	fractal_update(t_fractal *fractal)
+{
+	int		x;
+
+	x = 10;
+	if (fractal->fractal.iteration <= 0)
+		fractal->fractal.iteration = 0;
+	fractal_pthread(fractal);
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
+	fractal->manual_color, ft_strjoin("# of iterations : ", \
+	ft_itoa(fractal->fractal.iteration)));
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 35,\
+	fractal->manual_color, ft_strjoin("Scale : ", \
+	ft_itoa((int) fractal->fractal.scale)));
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
+	fractal->manual_color, "[ESC]                       exit fdf program");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 95,\
+	fractal->manual_color, "[Key |I|O|]                 Change iteration");
+}

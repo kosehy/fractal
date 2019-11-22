@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fractial.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sko <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 16:22:02 by sko               #+#    #+#             */
-/*   Updated: 2019/10/04 16:22:04 by sko              ###   ########.fr       */
+/*   Created: 2019/11/22 10:06:32 by sko               #+#    #+#             */
+/*   Updated: 2019/11/22 10:07:00 by sko              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef FRACTAL_H
+# define FRACTAL_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -25,12 +25,14 @@
 # include "mlx.h"
 # include "keys.h"
 
-# define MAX_X			(10)
-# define MAX_ZOOM		(5)
-# define MAGIC_ZOOM		(2)
-# define W_WIDTH		(1600)
-# define W_HEIGHT		(1200)
+# define MAX_ZOOM		500000000
+# define W_WIDTH		1600
+# define W_HEIGHT		1200
 # define THREADS		8
+# define PRECISION		1.005
+
+
+# define SQUARE(x) (x * x)
 
 typedef struct	s_dispatch_table
 {
@@ -109,15 +111,23 @@ typedef struct	s_fractal
 */
 
 void			fractal_pthread(t_fractal *fractal);
+void			fractal_update(t_fractal *fractal);
 
 /*
 ** util.c
 */
 
 void			fractal_init(t_fractal *fractal);
-void			fractal_update(t_fractal *fractal);
-int				fractal_manipulate(int x, int y, t_fractal *fractal);
+int				follow_by_mouse(int x, int y, t_fractal *fractal);
 int				fractal_mouse(int mc, int x, int y, t_fractal *fractal);
+
+/*
+** fractal_type.c
+*/
+
+int				mandelbrot_frac(t_fractal *f);
+int				julia_frac(t_fractal *f);
+int				ginkgo_frac(t_fractal *f);
 
 /*
 ** bonus1.c

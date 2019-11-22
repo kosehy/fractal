@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractal.h"
 
 /*
 ** random manual letter color
@@ -33,3 +33,4 @@ void	random_color_fractal(t_fractal *fractal)
 	fractal->color.blue = (rand() % 0xFFFFFF);
 	fractal->color.green = (rand() % 0xFFFFFF);
 }
+

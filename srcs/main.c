@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractal.h"
 
 /*
 ** select fractal based on argument
@@ -26,6 +26,8 @@ static int	fractal_selection(char *args, t_fractal *fractal)
 		fractal->fractal.type = 1;
 	else if (ft_strequ(args, "julia"))
 		fractal->fractal.type = 2;
+	else if (ft_strequ(args, "ginkgo"))
+		fractal->fractal.type = 3;
 	else
 	{
 		ft_putstr(args);
@@ -75,7 +77,7 @@ int			main(int argc, char *argv[])
 		fractal_update(fractal);
 		mlx_hook(fractal->mlx.win, 2, 3, fractal_keys, fractal);
 		mlx_hook(fractal->mlx.win, 4, 3, fractal_mouse, fractal);
-		mlx_hook(fractal->mlx.win, 6, 3, fractal_manipulate, fractal);
+		mlx_hook(fractal->mlx.win, 6, 3, follow_by_mouse, fractal);
 		mlx_loop(fractal->mlx.init);
 	}
 	return (0);
