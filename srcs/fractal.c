@@ -41,18 +41,32 @@ static void		put_pixel(t_fractal *fractal, int depth)
 	}
 }
 
-void			mandelbrot_frac(t_fractal *f)
+int			mandelbrot_frac(t_fractal *f)
 {
-	f->cp.tmp_zr = f->cp.zr;
-	f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
-	f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+			&& f->fractal.depth < f->fractal.iteration)
+	{
+		f->cp.tmp_zr = f->cp.zr;
+		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+		f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+		++f->fractal.depth;
+	}
+	return (f->fractal.depth);
 }
 
-void			julia_frac(t_fractal *f)
+int			julia_frac(t_fractal *f)
 {
-	f->cp.tmp_zr = f->cp.zr;
-	f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
-	f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+	f->cp.zr = (f->mouse.pos_x - (210.0 / 2.0)) / ((float)W_WIDTH * 2) + 0.15;
+	f->cp.zi = (f->mouse.pos_y - (320.0 / 2.0)) / ((float)W_HEIGHT) - 0.15;
+	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+			&& f->fractal.depth < f->fractal.iteration)
+	{
+		f->cp.tmp_zr = f->cp.zr;
+		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+		f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+		++f->fractal.depth;
+	}
+	return (f->fractal.depth);
 }
 
 t_dt	g_dt[] =
@@ -73,19 +87,16 @@ int				f_generator(t_fractal *f)
 	f->cp.zi = (f->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
 	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
 	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
-	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
-			&& f->fractal.depth < f->fractal.iteration)
+
+	while (i < 2)
 	{
-		while (i < 2)
+		if (g_dt[i].type == f->fractal.type)
 		{
-			if (g_dt[i].type == 1)
-			{
-				g_dt[i].ft(f);
-				break;
-			}
-			++i;
+			f->fractal.depth = g_dt[i].ft(f);
+			break;
 		}
-		++f->fractal.depth;
+		++i;
+
 	}
 	return (f->fractal.depth);
 }

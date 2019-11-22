@@ -35,7 +35,7 @@
 typedef struct	s_dispatch_table
 {
 	int			type;
-	void		(*ft)();
+	int			(*ft)();
 }				t_dt;
 
 typedef struct	s_image
