@@ -140,7 +140,7 @@ void			fractal_pthread(t_fractal *fractal)
 							fractal->mlx.img, 0, 0);
 }
 
-/*md
+/*
 ** Update the fractal image.
 ** @param fractal
 */
@@ -156,11 +156,15 @@ void	fractal_update(t_fractal *fractal)
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
 	fractal->manual_color, ft_strjoin("# of iterations : ", \
 	ft_itoa(fractal->fractal.iteration)));
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 35,\
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 25,\
 	fractal->manual_color, ft_strjoin("Scale : ", \
 	ft_itoa((int) fractal->fractal.scale)));
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 45,\
 	fractal->manual_color, "[ESC]                       exit fdf program");
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 95,\
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
 	fractal->manual_color, "[Key |I|O|]                 Change iteration");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 85,\
+	fractal->manual_color, "[Mouse whell up/down]       zoom in/out");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 105,\
+	fractal->manual_color, "[Mouse pointer move         fraction manipulation");
 }
