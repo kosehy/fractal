@@ -30,7 +30,13 @@
 # define MAGIC_ZOOM		(2)
 # define W_WIDTH		(1600)
 # define W_HEIGHT		(1200)
-# define THREADS		1
+# define THREADS		8
+
+typedef struct	s_dispatch_table
+{
+	int			type;
+	void		(*ft)();
+}				t_dt;
 
 typedef struct	s_image
 {
@@ -69,10 +75,23 @@ typedef struct	s_type
 
 typedef struct	s_mouse
 {
-	int state;
-	int pos_x;
-	int pos_y;
+	int			state;
+	int			pos_x;
+	int			pos_y;
 }				t_mouse;
+
+typedef struct	s_complex
+{
+	float		zr;
+	float		zi;
+	float		cr;
+	float		ci;
+	float		tmp_zr;
+	float		a;
+	float		b;
+	float		w;
+	float		h;
+}				t_complex;
 
 typedef struct	s_fractal
 {
@@ -81,14 +100,9 @@ typedef struct	s_fractal
 	t_color		color;
 	t_type		fractal;
 	t_mouse		mouse;
+	t_complex	cp;
 	int			manual_color;
 }				t_fractal;
-
-/*
-** Prototypes of the read file and draw functions.
-*/
-
-void			display_manual(t_fractal *fractal);
 
 /*
 **	fractal.c
@@ -102,5 +116,19 @@ void			fractal_pthread(t_fractal *fractal);
 
 void			fractal_init(t_fractal *fractal);
 void			fractal_update(t_fractal *fractal);
+int				fractal_manipulate(int x, int y, t_fractal *fractal);
+int				fractal_mouse(int mc, int x, int y, t_fractal *fractal);
+
+/*
+** bonus1.c
+*/
+
+void			random_color_letter(t_fractal *fractal);
+void			random_color_fractal(t_fractal *fractal);
+
+/*
+** bonus2.c
+*/
+
 
 #endif

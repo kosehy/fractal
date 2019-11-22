@@ -5,23 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sko <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 15:58:41 by sko               #+#    #+#             */
+/*   Created: 2019/10/04 15:58:41 by sko       0        #+#    #+#             */
 /*   Updated: 2019/10/04 16:27:24 by sko              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/*
+** select fractal based on argument
+** @param args
+** @param fractal
+** @return
+*/
+
 static int	fractal_selection(char *args, t_fractal *fractal)
 {
 	fractal->fractal.type = 0;
 	if (ft_strequ(args, "mandelbrot"))
 		fractal->fractal.type = 1;
+	else if (ft_strequ(args, "julia"))
+		fractal->fractal.type = 2;
 	else
 	{
 		ft_putstr(args);
 		ft_putstr(" is not a valid parameter!");
-		ft_putstr("See usage for a list of valid parameters!");
+		ft_putstr("Check the usage with ./fractal ");
 	}
 	return (fractal->fractal.type);
 }
@@ -38,19 +47,12 @@ static int	fractal_keys(int ks, t_fractal *fractal)
 		fractal->fractal.iteration -= 1;
 	else if (ks == KEY_AS_O)
 		fractal->fractal.iteration += 1;
+	else if (ks == KEY_AS_V)
+		random_color_letter(fractal);
+	else if (ks == KEY_AS_X)
+		random_color_fractal(fractal);
 	fractal_update(fractal);
 	return (0);
-}
-
-void		display_manual(t_fractal *fractal)
-{
-	int		x;
-
-	x = 0;
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
-	0XFFFFFF, "[ESC]                     exit fdf program");
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 95,\
-	0XFFFFFF, "[Key |I|O|]                 Change iteration");
 }
 
 int			main(int argc, char *argv[])
@@ -72,8 +74,8 @@ int			main(int argc, char *argv[])
 		fractal_init(fractal);
 		fractal_update(fractal);
 		mlx_hook(fractal->mlx.win, 2, 3, fractal_keys, fractal);
-//		mlx_hook(fdf->mlx.win, 4, 3, mouse_control, fdf);
-//		mlx_loop_hook(fdf->mlx.init, generate_fdf_map, fdf);
+		mlx_hook(fractal->mlx.win, 4, 3, fractal_mouse, fractal);
+		mlx_hook(fractal->mlx.win, 6, 3, fractal_manipulate, fractal);
 		mlx_loop(fractal->mlx.init);
 	}
 	return (0);

@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#define SQUARE(x) (x * x)
+
+/*md
+**
+** @param fractal
+** @param depth
+*/
 
 static void		put_pixel(t_fractal *fractal, int depth)
 {
@@ -34,37 +41,65 @@ static void		put_pixel(t_fractal *fractal, int depth)
 	}
 }
 
-/*
-** mandelbrot fractal
-** @param fractal
-** @return
-*/
-
-int				mandelbrot(t_fractal *fractal)
+void			mandelbrot_frac(t_fractal *f)
 {
-	float	zr;
-	float	zi;
-	float	cr;
-	float	ci;
-	float	tmp_zr;
-
-	fractal->fractal.depth = 0;
-	zr = (fractal->mouse.pos_x - W_WIDTH) / ((float)W_WIDTH * 2) + 0.25;
-	zi = (fractal->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
-	ci = fractal->fractal.width / fractal->fractal.scale + fractal->fractal.yi;
-	cr = fractal->fractal.height / fractal->fractal.scale + fractal->fractal.xr;
-	while (zr * zr + zi * zi < 4 \
-			&& fractal->fractal.depth < fractal->fractal.iteration)
-	{
-		tmp_zr = zr;
-		zr = zr * zr - zi * zi + cr;
-		zi = (2 * zi) * tmp_zr + ci;
-		++fractal->fractal.depth;
-	}
-	return (fractal->fractal.depth);
+	f->cp.tmp_zr = f->cp.zr;
+	f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+	f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
 }
 
-/*
+void			julia_frac(t_fractal *f)
+{
+	f->cp.tmp_zr = f->cp.zr;
+	f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+	f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+}
+
+t_dt	g_dt[] =
+{
+	{1, mandelbrot_frac},
+	{2, julia_frac}
+};
+
+int				f_generator(t_fractal *f)
+{
+	float	scale;
+	int		i;
+
+	i = 0;
+	scale = f->fractal.scale;
+	f->fractal.depth = 0;
+	f->cp.zr = (f->mouse.pos_x - W_WIDTH) / ((float)W_WIDTH * 2) + 0.25;
+	f->cp.zi = (f->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
+	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
+	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
+	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+			&& f->fractal.depth < f->fractal.iteration)
+	{
+		while (i < 2)
+		{
+			if (g_dt[i].type == 1)
+			{
+				g_dt[i].ft(f);
+				break;
+			}
+			++i;
+		}
+		++f->fractal.depth;
+	}
+	return (f->fractal.depth);
+}
+
+int				check_fractal_depth(t_fractal *fractal)
+{
+	int			depth;
+
+	depth = 0;
+	depth = f_generator(fractal);
+	return (depth);
+}
+
+/*md
 ** draw the fractal based on the fractal.type
 ** @param slot
 ** @return
@@ -83,7 +118,7 @@ static void		*draw_fractal(void *slot)
 		fractal->fractal.width = tmp;
 		while (fractal->fractal.width < fractal->fractal.limit)
 		{
-			depth = (fractal->fractal.type == 1) ? mandelbrot(fractal) : depth;
+			depth = check_fractal_depth(fractal);
 			put_pixel(fractal, depth);
 			++fractal->fractal.width;
 		}
@@ -92,7 +127,7 @@ static void		*draw_fractal(void *slot)
 	return (slot);
 }
 
-/*
+/*md
 ** do the image process with multi-threading
 ** @param fractal
 */

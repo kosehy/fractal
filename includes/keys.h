@@ -26,8 +26,8 @@
 # define KEY_AS_W			 		(0X0D)
 # define KEY_AS_E			 		(0X0E)
 # define KEY_AS_R			 		(0X0F)
-# define KEY_AS_I					(0X10)
-# define KEY_AS_O					(0X11)
+# define KEY_AS_I					(0X22)
+# define KEY_AS_O					(0X1F)
 
 # define KEY_NAS_SPACE				(0X31)
 # define KEY_NAS_ESCAPE				(0X35)
@@ -35,5 +35,17 @@
 # define KEY_NAS_RIGHTARROW			(0X7C)
 # define KEY_NAS_DOWNARROW			(0X7D)
 # define KEY_NAS_UPARROW			(0X7E)
+
+/*
+** mouse button
+*/
+
+# define MOUSE_LEFT_CLICK			(0x01)
+# define MOUSE_RIGHT_CLICK			(0x02)
+# define MOUSE_MIDDLE_CLICK			(0x03)
+# define MOUSE_UP_SCROLL			(0x04)
+# define MOUSE_DOWN_SCROLL 			(0x05)
+
+
 
 #endif
