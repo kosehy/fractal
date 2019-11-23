@@ -5,12 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sko <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 15:58:41 by sko       0        #+#    #+#             */
+/*   Created: 2019/10/04 15:58:41 by sko               #+#    #+#             */
 /*   Updated: 2019/10/04 16:27:24 by sko              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
+
+static void	fractal_usage(void)
+{
+	ft_putstr("USAGE: fractal ");
+	ft_putstr("|mandelbrot| |julia| |frug| |butterfly| |ginkgo|\n");
+	ft_putstr("KEY Control\n");
+	ft_putstr("[ESC]                       exit fractol program\n");
+	ft_putstr("[Key |I|O|]                 Change iteration\n");
+	ft_putstr("\n");
+	ft_putstr("MOUSE Control\n");
+	ft_putstr("[Mouse whell up/down]       zoom in/out\n");
+	ft_putstr("[Mouse Middle]              go to initial state\n");
+	ft_putstr("[Mouse pointer move         fraction manipulation\n");
+}
 
 /*
 ** select fractal based on argument
@@ -26,13 +40,17 @@ static int	fractal_selection(char *args, t_fractal *fractal)
 		fractal->fractal.type = 1;
 	else if (ft_strequ(args, "julia"))
 		fractal->fractal.type = 2;
-	else if (ft_strequ(args, "ginkgo"))
+	else if (ft_strequ(args, "frug"))
 		fractal->fractal.type = 3;
+	else if (ft_strequ(args, "butterfly"))
+		fractal->fractal.type = 4;
+	else if (ft_strequ(args, "ginkgo"))
+		fractal->fractal.type = 5;
 	else
 	{
 		ft_putstr(args);
-		ft_putstr(" is not a valid parameter!");
-		ft_putstr("Check the usage with ./fractal ");
+		ft_putstr(" is not a valid parameter!\n");
+		ft_putstr("Check the usage with ./fractal\n");
 	}
 	return (fractal->fractal.type);
 }
@@ -80,5 +98,7 @@ int			main(int argc, char *argv[])
 		mlx_hook(fractal->mlx.win, 6, 3, follow_by_mouse, fractal);
 		mlx_loop(fractal->mlx.init);
 	}
+	else
+		fractal_usage();
 	return (0);
 }

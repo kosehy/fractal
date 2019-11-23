@@ -1,3 +1,6 @@
+# strange files
+*.nfs*
+
 # CLion files
 .idea
 cmake-build-debug

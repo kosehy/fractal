@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractial.h                                          :+:      :+:    :+:   */
+/*   fractal.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sko <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -29,8 +29,7 @@
 # define W_WIDTH		1600
 # define W_HEIGHT		1200
 # define THREADS		8
-# define PRECISION		1.005
-
+# define PRECISION		1.045
 
 # define SQUARE(x) (x * x)
 
@@ -127,6 +126,8 @@ int				fractal_mouse(int mc, int x, int y, t_fractal *fractal);
 
 int				mandelbrot_frac(t_fractal *f);
 int				julia_frac(t_fractal *f);
+int				frug_frac(t_fractal *f);
+int				butterfly_frac(t_fractal *f);
 int				ginkgo_frac(t_fractal *f);
 
 /*
@@ -135,10 +136,5 @@ int				ginkgo_frac(t_fractal *f);
 
 void			random_color_letter(t_fractal *fractal);
 void			random_color_fractal(t_fractal *fractal);
-
-/*
-** bonus2.c
-*/
-
 
 #endif

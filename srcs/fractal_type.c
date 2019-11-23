@@ -63,6 +63,58 @@ int				julia_frac(t_fractal *f)
 	return (f->fractal.depth);
 }
 
+int				frug_frac(t_fractal *f)
+{
+	float	w;
+	float	h;
+	float	scale;
+
+	scale = f->fractal.scale;
+	f->fractal.xr = -2.70;
+	f->fractal.yi = -2.00;
+	w = (210.0 / 2.0) + W_WIDTH;
+	h = (320.0 / 2.0) + W_HEIGHT;
+	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
+	f->cp.ci = (f->mouse.pos_y - h) / ((float)W_HEIGHT) - 0.15;
+	f->cp.zi = f->fractal.width / scale + f->fractal.yi;
+	f->cp.zr = f->fractal.height / scale + f->fractal.xr;
+	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+			&& f->fractal.depth < f->fractal.iteration)
+	{
+		f->cp.tmp_zr = f->cp.zr;
+		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+		f->cp.zi = -2 * SQUARE(f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+		++f->fractal.depth;
+	}
+	return (f->fractal.depth);
+}
+
+int				butterfly_frac(t_fractal *f)
+{
+	float	w;
+	float	h;
+	float	scale;
+
+	scale = f->fractal.scale;
+	f->fractal.xr = -2.70;
+	f->fractal.yi = -2.00;
+	w = (210.0 / 2.0) + W_WIDTH;
+	h = (320.0 / 2.0) + W_HEIGHT;
+	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
+	f->cp.ci = (f->mouse.pos_y - h) / ((float)W_HEIGHT) - 0.15;
+	f->cp.zr = f->fractal.width / scale + f->fractal.yi;
+	f->cp.zi = f->fractal.height / scale + f->fractal.xr;
+	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+			&& f->fractal.depth < f->fractal.iteration)
+	{
+		f->cp.tmp_zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+		f->cp.zi = fabs(2 * f->cp.zr * f->cp.zi) + f->cp.ci;
+		f->cp.zr = f->cp.tmp_zr;
+		++f->fractal.depth;
+	}
+	return (f->fractal.depth);
+}
+
 int				ginkgo_frac(t_fractal *f)
 {
 	float	scale;

@@ -46,6 +46,4 @@
 # define MOUSE_UP_SCROLL			(0x04)
 # define MOUSE_DOWN_SCROLL 			(0x05)
 
-
-
 #endif

@@ -20,7 +20,7 @@
 ** @3 : sphere Set
 */
 
-void		fractal_init(t_fractal *fractal)
+void			fractal_init(t_fractal *fractal)
 {
 	fractal->fractal.xr = -2.60;
 	fractal->fractal.yi = -2.20;
@@ -38,11 +38,9 @@ void		fractal_init(t_fractal *fractal)
 	fractal->cp.ci = 0.0;
 	fractal->cp.a = 0.0;
 	fractal->cp.b = 0.0;
+	fractal->mouse.state = 1;
 	if (fractal->fractal.type == 2)
-	{
-		fractal->mouse.state = 1;
 		fractal->fractal.iteration = 100;
-	}
 }
 
 /*
@@ -128,17 +126,19 @@ int				fractal_mouse(int mc, int x, int y, t_fractal *fractal)
 {
 	if (x > 0 && y > 0 && x < W_WIDTH && y < W_HEIGHT)
 	{
-		if (mc == MOUSE_LEFT_CLICK)
+		if (mc == MOUSE_UP_SCROLL)
+			zoom_in(x, y, fractal);
+		else if (mc == MOUSE_DOWN_SCROLL)
+			zoom_out(fractal);
+		else if (mc == MOUSE_MIDDLE_CLICK)
+			fractal_init(fractal);
+		else if (mc == MOUSE_LEFT_CLICK)
 		{
 			if (fractal->mouse.state == 1)
 				fractal->mouse.state = 0;
 			else
 				fractal->mouse.state = 1;
 		}
-		else if (mc == MOUSE_UP_SCROLL)
-			zoom_in(x, y, fractal);
-		else if (mc == MOUSE_DOWN_SCROLL)
-			zoom_out(fractal);
 		fractal_update(fractal);
 	}
 	return (0);
