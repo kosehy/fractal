@@ -61,16 +61,10 @@ static void		put_pixel(t_fractal *fractal, int depth)
 
 int				f_generator(t_fractal *f)
 {
-	float	scale;
 	int		i;
 
 	i = 0;
-	scale = f->fractal.scale;
 	f->fractal.depth = 0;
-	f->cp.zr = (f->mouse.pos_x - W_WIDTH) / ((float)W_WIDTH * 2) + 0.25;
-	f->cp.zi = (f->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
-	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
-	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
 	while (i < 5)
 	{
 		if (g_dt[i].type == f->fractal.type)
@@ -153,4 +147,22 @@ void			fractal_update(t_fractal *fractal)
 	if (fractal->fractal.iteration <= 0)
 		fractal->fractal.iteration = 0;
 	fractal_pthread(fractal);
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
+	fractal->manual_color, "USAGE: fractal ");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 25,\
+	fractal->manual_color, "|mandelbrot| |julia| |frug| |butterfly| |ginkgo|");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 45,\
+	fractal->manual_color, "KEY Control");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
+	fractal->manual_color, "[ESC]                       exit fractol program");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 85,\
+	fractal->manual_color, "[Key |I|O|]                 Change iteration");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 125,\
+	fractal->manual_color, "MOUSE Control");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 145,\
+	fractal->manual_color, "[Mouse whell up/down]       zoom in/out");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 165,\
+	fractal->manual_color, "[Mouse Middle]              go to initial state");
+	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 185,\
+	fractal->manual_color, "[Mouse pointer move         fraction manipulation");
 }

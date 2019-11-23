@@ -20,6 +20,13 @@
 
 int				mandelbrot_frac(t_fractal *f)
 {
+	float	scale;
+
+	scale = f->fractal.scale;
+	f->cp.zr = (f->mouse.pos_x - W_WIDTH) / ((float)W_WIDTH * 2) + 0.25;
+	f->cp.zi = (f->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
+	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
+	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
 	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
 			&& f->fractal.depth < f->fractal.iteration)
 	{
