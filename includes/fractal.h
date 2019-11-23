@@ -126,7 +126,7 @@ int				fractal_mouse(int mc, int x, int y, t_fractal *fractal);
 
 int				mandelbrot_frac(t_fractal *f);
 int				julia_frac(t_fractal *f);
-int				frug_frac(t_fractal *f);
+int				frog_frac(t_fractal *f);
 int				butterfly_frac(t_fractal *f);
 int				ginkgo_frac(t_fractal *f);
 

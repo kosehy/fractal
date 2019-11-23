@@ -40,7 +40,7 @@ static int	fractal_selection(char *args, t_fractal *fractal)
 		fractal->fractal.type = 1;
 	else if (ft_strequ(args, "julia"))
 		fractal->fractal.type = 2;
-	else if (ft_strequ(args, "frug"))
+	else if (ft_strequ(args, "frog"))
 		fractal->fractal.type = 3;
 	else if (ft_strequ(args, "butterfly"))
 		fractal->fractal.type = 4;

@@ -20,7 +20,7 @@ t_dt			g_dt[] =
 {
 	{1, mandelbrot_frac},
 	{2, julia_frac},
-	{3, frug_frac},
+	{3, frog_frac},
 	{4, butterfly_frac},
 	{5, ginkgo_frac}
 };

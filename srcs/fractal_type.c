@@ -63,7 +63,7 @@ int				julia_frac(t_fractal *f)
 	return (f->fractal.depth);
 }
 
-int				frug_frac(t_fractal *f)
+int				frog_frac(t_fractal *f)
 {
 	float	w;
 	float	h;
