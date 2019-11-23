@@ -44,7 +44,6 @@ void			fractal_init(t_fractal *fractal)
 		fractal->fractal.xr = -2.10;
 		fractal->fractal.iteration = 100;
 	}
-
 }
 
 /*

@@ -148,10 +148,6 @@ void			fractal_update(t_fractal *fractal)
 		fractal->fractal.iteration = 0;
 	fractal_pthread(fractal);
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
-	fractal->manual_color, "USAGE: fractal ");
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 25,\
-	fractal->manual_color, "|mandelbrot| |julia| |frug| |butterfly| |ginkgo|");
-	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 45,\
 	fractal->manual_color, "KEY Control");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
 	fractal->manual_color, "[ESC]                       exit fractol program");
