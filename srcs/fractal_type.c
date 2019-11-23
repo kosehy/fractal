@@ -57,8 +57,8 @@ int				julia_frac(t_fractal *f)
 	h = (320.0 / 2.0) + W_HEIGHT;
 	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
 	f->cp.ci = (f->mouse.pos_y - h) / ((float)W_HEIGHT) - 0.15;
-	f->cp.zr = f->fractal.width / scale + f->fractal.yi;
-	f->cp.zi = f->fractal.height / scale + f->fractal.xr;
+	f->cp.zi = f->fractal.width / scale + f->fractal.yi;
+	f->cp.zr = f->fractal.height / scale + f->fractal.xr;
 	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
 			&& f->fractal.depth < f->fractal.iteration)
 	{
@@ -68,6 +68,22 @@ int				julia_frac(t_fractal *f)
 		++f->fractal.depth;
 	}
 	return (f->fractal.depth);
+//	float	scale;
+//
+//	scale = f->fractal.scale;
+//	f->cp.zr = (f->mouse.pos_x - W_WIDTH) / ((float)W_WIDTH * 2) + 0.25;
+//	f->cp.zi = (f->mouse.pos_y - W_HEIGHT) / ((float)W_HEIGHT) + 0.50;
+//	f->cp.cr = f->fractal.width / scale + f->fractal.yi;
+//	f->cp.ci = f->fractal.height / scale + f->fractal.xr;
+//	while (SQUARE(f->cp.zr) + SQUARE(f->cp.zi) < 4 \
+//			&& f->fractal.depth < f->fractal.iteration)
+//	{
+//		f->cp.tmp_zr = f->cp.zr;
+//		f->cp.zr = SQUARE(f->cp.zr) - SQUARE(f->cp.zi) + f->cp.cr;
+//		f->cp.zi = (2 * f->cp.zi) * f->cp.tmp_zr + f->cp.ci;
+//		++f->fractal.depth;
+//	}
+//	return (f->fractal.depth);
 }
 
 int				frog_frac(t_fractal *f)

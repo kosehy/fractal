@@ -40,7 +40,11 @@ void			fractal_init(t_fractal *fractal)
 	fractal->cp.b = 0.0;
 	fractal->mouse.state = 1;
 	if (fractal->fractal.type == 2)
+	{
+		fractal->fractal.xr = -2.10;
 		fractal->fractal.iteration = 100;
+	}
+
 }
 
 /*

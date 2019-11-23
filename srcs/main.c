@@ -19,6 +19,8 @@ static void	fractal_usage(void)
 	ft_putstr("KEY Control\n");
 	ft_putstr("[ESC]                       exit fractol program\n");
 	ft_putstr("[Key |I|O|]                 Change iteration\n");
+	ft_putstr("[Key |V|]                   Change manual color\n");
+	ft_putstr("[Key |X|]                   Change fractol color\n");
 	ft_putstr("\n");
 	ft_putstr("MOUSE Control\n");
 	ft_putstr("[Mouse whell up/down]       zoom in/out\n");
