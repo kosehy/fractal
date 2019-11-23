@@ -30,6 +30,9 @@ Developer, Designer Be creative!! Currently Studying [@42SiliconValley][42]
 ## Objective  
 The assignment is broken up into a part 1 and part 2. Part 1 is to discover /use the mathematical notion of complex numbers. Part 2 is to take a peek at the concept of optimization in computer graphics.
 
+## Instructions
+Make sure you have the needed [dependencies](#dependencies) before proceeding.
+For instructions and/or greater detail refer to the project [pdf][pdf]
 ## Mandatory
 1. Implement at least 3 different types of fractals, including Julia st and the Mandelbrot set. The third fractal can be free to choose.
 2. To make the parameter of the Julia set vary only with the mouse (without clicking). For other types of fractal, you can do what you want.
@@ -47,9 +50,6 @@ The assignment is broken up into a part 1 and part 2. Part 1 is to discover /use
 6. 3D representation.
 7. Two valid parameters in the command line, resulting in two fractals in two windows.
 8. You can add bonuses of your own invention, which will be assessed by your evaluators.
-## Instructions
-Make sure you have the needed [dependencies](#dependencies) before proceeding.
-For instructions and/or greater detail refer to the project [pdf][pdf]
 
 ## Dependencies  
 
