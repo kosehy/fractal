@@ -26,8 +26,8 @@
 # include "keys.h"
 
 # define MAX_ZOOM		500000000
-# define W_WIDTH		1600
-# define W_HEIGHT		1200
+# define W_WIDTH		800
+# define W_HEIGHT		600
 # define THREADS		8
 # define PRECISION		1.045
 

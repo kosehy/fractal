@@ -51,8 +51,6 @@ int				julia_frac(t_fractal *f)
 	float	scale;
 
 	scale = f->fractal.scale;
-	f->fractal.xr = -2.70;
-	f->fractal.yi = -2.00;
 	w = (210.0 / 2.0) + W_WIDTH;
 	h = (320.0 / 2.0) + W_HEIGHT;
 	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
@@ -77,8 +75,6 @@ int				frog_frac(t_fractal *f)
 	float	scale;
 
 	scale = f->fractal.scale;
-	f->fractal.xr = -2.70;
-	f->fractal.yi = -2.00;
 	w = (210.0 / 2.0) + W_WIDTH;
 	h = (320.0 / 2.0) + W_HEIGHT;
 	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
@@ -103,8 +99,6 @@ int				butterfly_frac(t_fractal *f)
 	float	scale;
 
 	scale = f->fractal.scale;
-	f->fractal.xr = -2.70;
-	f->fractal.yi = -2.00;
 	w = (210.0 / 2.0) + W_WIDTH;
 	h = (320.0 / 2.0) + W_HEIGHT;
 	f->cp.cr = (f->mouse.pos_x - w) / ((float)W_WIDTH * 2) + 0.15;
@@ -127,8 +121,6 @@ int				ginkgo_frac(t_fractal *f)
 	float	scale;
 
 	scale = f->fractal.scale;
-	f->fractal.xr = -2.7;
-	f->fractal.yi = -2.1;
 	f->cp.cr = 0.29;
 	f->cp.ci = 0.02;
 	f->cp.zi = f->fractal.width / scale + f->fractal.yi;

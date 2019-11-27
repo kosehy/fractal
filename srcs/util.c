@@ -22,9 +22,9 @@
 
 void			fractal_init(t_fractal *fractal)
 {
-	fractal->fractal.xr = -2.60;
-	fractal->fractal.yi = -2.20;
-	fractal->fractal.scale = 300.00;
+	fractal->fractal.xr = -3.00;
+	fractal->fractal.yi = -2.00;
+	fractal->fractal.scale = 180.00;
 	fractal->fractal.iteration = 42;
 	fractal->color.green = 0x22;
 	fractal->color.blue = 0x32;
@@ -40,10 +40,7 @@ void			fractal_init(t_fractal *fractal)
 	fractal->cp.b = 0.0;
 	fractal->mouse.state = 1;
 	if (fractal->fractal.type == 2)
-	{
-		fractal->fractal.xr = -2.10;
 		fractal->fractal.iteration = 100;
-	}
 }
 
 /*

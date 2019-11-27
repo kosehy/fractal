@@ -17,15 +17,15 @@ static void	fractal_usage(void)
 	ft_putstr("USAGE: fractal ");
 	ft_putstr("|mandelbrot| |julia| |frug| |butterfly| |ginkgo|\n");
 	ft_putstr("KEY Control\n");
-	ft_putstr("[ESC]                       exit fractol program\n");
-	ft_putstr("[Key |I|O|]                 Change iteration\n");
-	ft_putstr("[Key |V|]                   Change manual color\n");
-	ft_putstr("[Key |X|]                   Change fractol color\n");
+	ft_putstr("[ESC]                  exit fractol program\n");
+	ft_putstr("[Key |I|O|]            Change iteration\n");
+	ft_putstr("[Key |V|]              Change manual color\n");
+	ft_putstr("[Key |X|]              Change fractol color\n");
 	ft_putstr("\n");
 	ft_putstr("MOUSE Control\n");
-	ft_putstr("[Mouse whell up/down]       zoom in/out\n");
-	ft_putstr("[Mouse Middle]              go to initial state\n");
-	ft_putstr("[Mouse pointer move         fraction manipulation\n");
+	ft_putstr("[Mouse whell up/down]  zoom in/out\n");
+	ft_putstr("[Mouse Middle]         go to initial state\n");
+	ft_putstr("[Mouse pointer move    fraction manipulation\n");
 }
 
 /*
@@ -73,6 +73,16 @@ static int	fractal_keys(int ks, t_fractal *fractal)
 		random_color_letter(fractal);
 	else if (ks == KEY_AS_X)
 		random_color_fractal(fractal);
+	else if (ks == KEY_AS_Q)
+		fractal->fractal.type = 1;
+	else if (ks == KEY_AS_W)
+		fractal->fractal.type = 2;
+	else if (ks == KEY_AS_E)
+		fractal->fractal.type = 3;
+	else if (ks == KEY_AS_R)
+		fractal->fractal.type = 4;
+	else if (ks == KEY_AS_T)
+		fractal->fractal.type = 5;
 	fractal_update(fractal);
 	return (0);
 }

@@ -143,26 +143,26 @@ void			fractal_update(t_fractal *fractal)
 {
 	int		x;
 
-	x = 10;
 	if (fractal->fractal.iteration <= 0)
 		fractal->fractal.iteration = 0;
 	fractal_pthread(fractal);
+	x = 10;
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 5,\
 	fractal->manual_color, "KEY Control");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 65,\
-	fractal->manual_color, "[ESC]                       exit fractol program");
+	fractal->manual_color, "[ESC]            exit fractol program");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 85,\
-	fractal->manual_color, "[Key |I|O|]                 Change iteration");
+	fractal->manual_color, "[Key |I|O|]      Change iteration");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 105,\
-	fractal->manual_color, "[Key |V|]                   Change manual color");
+	fractal->manual_color, "[Key |V|]        Change manual color");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 125,\
-	fractal->manual_color, "[Key |X|]                   Change fractol color");
+	fractal->manual_color, "[Key |X|]        Change fractol color");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 145,\
 	fractal->manual_color, "MOUSE Control");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 165,\
-	fractal->manual_color, "[Mouse whell up/down]       zoom in/out");
+	fractal->manual_color, "[whell up/down]  zoom in/out");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 185,\
-	fractal->manual_color, "[Mouse Middle]              go to initial state");
+	fractal->manual_color, "[Middle]         go to initial state");
 	mlx_string_put(fractal->mlx.init, fractal->mlx.win, x, 205,\
-	fractal->manual_color, "[Mouse pointer move         fraction manipulation");
+	fractal->manual_color, "[pointer move    fraction manipulation");
 }
