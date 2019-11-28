@@ -42,14 +42,17 @@ For instructions and/or greater detail refer to the project [pdf][pdf]
 6. ESC will exit the program.
 7. The use of images of the minilibX is strongly recommended.
 ## Bonus
-1. The zoom follow the actual mouse position.
-2. In addition to the zoom: moving with the arrows.
-3. Make the color range shift.
-4. Multi-threading implementation.
-5. Plenty of fun fractals.
-6. 3D representation.
-7. Two valid parameters in the command line, resulting in two fractals in two windows.
-8. You can add bonuses of your own invention, which will be assessed by your evaluators.
+- [ ] 1. The zoom follow the actual mouse position.
+- [ ] 2. In addition to the zoom: moving with the arrows.
+- [ ] 3. Make the color range shift.
+- [x] 4. Multi-threading implementation.
+- [x] 5. Plenty of fun fractals.
+- [ ] 6. 3D representation.
+- [ ] 7. Two valid parameters in the command line, resulting in two fractals in two windows.
+- [x] 8. Use dispatch table.
+- [x] 9. Change manual color.
+- [x] 10. Change fractol color.
+- [ ] 11. You can add bonuses of your own invention, which will be assessed by your evaluators.
 
 ## Dependencies  
 
