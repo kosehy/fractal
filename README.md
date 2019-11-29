@@ -52,7 +52,9 @@ For instructions and/or greater detail refer to the project [pdf][pdf]
 - [x] 8. Use dispatch table.
 - [x] 9. Change manual color.
 - [x] 10. Change fractol color.
-- [ ] 11. You can add bonuses of your own invention, which will be assessed by your evaluators.
+- [x] 11. Mouse middle click - go to intial state.
+- [x] 12. change fractal state by clicking eyboard Q, W, E, R, T.
+- [ ] 13. You can add bonuses of your own invention, which will be assessed by your evaluators.
 
 ## Dependencies  
 
