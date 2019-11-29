@@ -15,7 +15,7 @@
 static void	fractal_usage(void)
 {
 	ft_putstr("USAGE: fractal ");
-	ft_putstr("|mandelbrot| |julia| |frug| |butterfly| |ginkgo|\n");
+	ft_putstr("|mandelbrot| |julia| |frog| |butterfly| |ginkgo|\n");
 	ft_putstr("KEY Control\n");
 	ft_putstr("[ESC]                  exit fractol program\n");
 	ft_putstr("[Key |I|O|]            Change iteration\n");
