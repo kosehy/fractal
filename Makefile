@@ -50,6 +50,7 @@ clean:
 
 fclean:	clean
 	@$(DEL) $(NAME)
+	@$(DEL) fractol.dSYM
 	@make -C $(FT) fclean
 	@echo "[=================]"
 	@echo "|     succes !    |"
