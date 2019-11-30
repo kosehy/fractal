@@ -46,7 +46,7 @@ For instructions and/or greater detail refer to the project [pdf][pdf]
 - [ ] 2. In addition to the zoom: moving with the arrows.
 - [ ] 3. Make the color range shift.
 - [x] 4. Multi-threading implementation.
-- [x] 5. Plenty of fun fractals.
+- [x] 5. Plenty of fun fractals(2 out of five).
 - [ ] 6. 3D representation.
 - [ ] 7. Two valid parameters in the command line, resulting in two fractals in two windows.
 - [x] 8. Use dispatch table.
@@ -54,7 +54,8 @@ For instructions and/or greater detail refer to the project [pdf][pdf]
 - [x] 10. Change fractol color.
 - [x] 11. Mouse middle click - go to intial state.
 - [x] 12. change fractal state by clicking eyboard Q, W, E, R, T.
-- [ ] 13. You can add bonuses of your own invention, which will be assessed by your evaluators.
+- [ ] 13. allow arrow key to move fractal.
+- [ ] 14. You can add bonuses of your own invention, which will be assessed by your evaluators.
 
 ## Dependencies  
 
